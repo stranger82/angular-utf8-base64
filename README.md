@@ -2,9 +2,8 @@
 
 AngularJS service for UTF-8 and Base64 Javascript Encoding
 
-There is another AngularJS service for Base64 encoding there:
-https://github.com/ninjatronic/angular-base64
-But it doesn't support
+There is another AngularJS service for Base64 encoding [available](https://github.com/ninjatronic/angular-base64).
+But it doesn't support UTF-8.
 
 ## Installation
 
@@ -15,7 +14,7 @@ bower install angular-utf8-base64
 ```
 
 ```html
-<script src="bower_components/angular-utf8-base64/angular-utf8-base64.js"></script>
+<script src="bower_components/angular-utf8-base64/angular-utf8-base64.min.js"></script>
 ```
 
 ## Usage
