@@ -2,8 +2,11 @@
 
 AngularJS service for UTF-8 and Base64 Javascript Encoding
 
+angular-utf8-base64 is based on [Really fast Javascript Base64 encoder/decoder with utf-8 support](http://jsbase64.codeplex.com/releases/view/89265). I just wrapped it as AngularJS service.
+
 There is another AngularJS service for Base64 encoding [available](https://github.com/ninjatronic/angular-base64).
 But it doesn't support UTF-8.
+
 
 ## Installation
 
