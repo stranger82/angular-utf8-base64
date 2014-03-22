@@ -1,0 +1,29 @@
+{
+    "name": "angular-utf8-base64",
+    "version": "0.0.1",
+    "author": "stranger82",
+    "description": "Base64 encoding/decoding with UTF8 support for AngularJS Apps",
+    "contributors": [
+        {
+            "name": "Andrey Bezyazychniy",
+            "email": "stranger82@gmail.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/stranger82/angular-utf8-base64.git"
+    },
+    "devDependencies": {
+        "grunt": "",
+        "grunt-cli": "",
+        "grunt-contrib-clean": "",
+        "grunt-contrib-copy": "",
+        "grunt-contrib-jshint": "",
+        "grunt-contrib-watch": "",
+        "grunt-contrib-concat": "",
+        "grunt-contrib-uglify": "",
+        "grunt-notify": "",
+        "grunt-strip": "",
+        "grunt-text-replace": ""
+    }
+}
