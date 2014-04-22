@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ab-base64',[]).factory('base64', function() {
+angular.module('ab-base64',[]).constant('base64', (function() {
 
     /*
      * Encapsulation of Vassilis Petroulias's base64.js library for AngularJS
@@ -148,4 +148,4 @@ angular.module('ab-base64',[]).factory('base64', function() {
         decode: B64.decode,
         encode: B64.encode
     }
-});
+})());
