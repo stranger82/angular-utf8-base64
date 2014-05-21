@@ -1,6 +1,6 @@
 {
     "name": "angular-utf8-base64",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "author": "stranger82",
     "description": "Base64 encoding/decoding with UTF8 support for AngularJS Apps",
     "contributors": [
