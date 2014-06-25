@@ -1,6 +1,6 @@
 {
     "name": "angular-utf8-base64",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "main": "angular-utf8-base64.min.js",
     "ignore": [
         "package.json",
