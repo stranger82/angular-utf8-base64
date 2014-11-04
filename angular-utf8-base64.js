@@ -28,12 +28,15 @@ angular.module('ab-base64',[]).constant('base64', (function() {
         ie: /MSIE /.test(navigator.userAgent),
         ieo: /MSIE [67]/.test(navigator.userAgent),
         encode: function (s) {
+            /* jshint bitwise:false */
             var buffer = B64.toUtf8(s),
                 position = -1,
+                result,
                 len = buffer.length,
                 nan0, nan1, nan2, enc = [, , , ];
+            
             if (B64.ie) {
-                var result = [];
+                result = [];
                 while (++position < len) {
                     nan0 = buffer[position];
                     nan1 = buffer[++position];
@@ -50,7 +53,7 @@ angular.module('ab-base64',[]).constant('base64', (function() {
                 }
                 return result.join('');
             } else {
-                var result = '';
+                result = '';
                 while (++position < len) {
                     nan0 = buffer[position];
                     nan1 = buffer[++position];
@@ -69,13 +72,20 @@ angular.module('ab-base64',[]).constant('base64', (function() {
             }
         },
         decode: function (s) {
+            /* jshint bitwise:false */
+            s = s.replace(/\s/g, '');
             if (s.length % 4)
-                throw new Error("InvalidCharacterError: 'B64.decode' failed: The string to be decoded is not correctly encoded.");
+                throw new Error('InvalidLengthError: decode failed: The string to be decoded is not the correct length for a base64 encoded string.');
+            if(/[^A-Za-z0-9+\/=\s]/g.test(s))
+                throw new Error('InvalidCharacterError: decode failed: The string contains characters invalid in a base64 encoded string.');
+
             var buffer = B64.fromUtf8(s),
                 position = 0,
+                result,
                 len = buffer.length;
+
             if (B64.ieo) {
-                var result = [];
+                result = [];
                 while (position < len) {
                     if (buffer[position] < 128)
                         result.push(String.fromCharCode(buffer[position++]));
@@ -86,7 +96,7 @@ angular.module('ab-base64',[]).constant('base64', (function() {
                 }
                 return result.join('');
             } else {
-                var result = '';
+                result = '';
                 while (position < len) {
                     if (buffer[position] < 128)
                         result += String.fromCharCode(buffer[position++]);
@@ -99,6 +109,7 @@ angular.module('ab-base64',[]).constant('base64', (function() {
             }
         },
         toUtf8: function (s) {
+            /* jshint bitwise:false */
             var position = -1,
                 len = s.length,
                 chr, buffer = [];
@@ -116,6 +127,7 @@ angular.module('ab-base64',[]).constant('base64', (function() {
             return buffer;
         },
         fromUtf8: function (s) {
+            /* jshint bitwise:false */
             var position = -1,
                 len, buffer = [],
                 enc = [, , , ];
@@ -132,11 +144,11 @@ angular.module('ab-base64',[]).constant('base64', (function() {
                 enc[1] = B64.lookup[s.charAt(++position)];
                 buffer.push((enc[0] << 2) | (enc[1] >> 4));
                 enc[2] = B64.lookup[s.charAt(++position)];
-                if (enc[2] == 64)
+                if (enc[2] === 64)
                     break;
                 buffer.push(((enc[1] & 15) << 4) | (enc[2] >> 2));
                 enc[3] = B64.lookup[s.charAt(++position)];
-                if (enc[3] == 64)
+                if (enc[3] === 64)
                     break;
                 buffer.push(((enc[2] & 3) << 6) | enc[3]);
             }
@@ -144,8 +156,39 @@ angular.module('ab-base64',[]).constant('base64', (function() {
         }
     };
 
-    return{
+    var B64url = {
+        decode: function(input) {
+            // Replace non-url compatible chars with base64 standard chars
+            input = input
+                .replace(/-/g, '+')
+                .replace(/_/g, '/');
+
+            // Pad out with standard base64 required padding characters
+            var pad = input.length % 4;
+            if(pad) {
+              if(pad === 1) {
+                throw new Error('InvalidLengthError: Input base64url string is the wrong length to determine padding');
+              }
+              input += new Array(5-pad).join('=');
+            }
+
+            return B64.decode(input);
+        },
+
+        encode: function(input) {
+            var output = B64.encode(input);
+            return output
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_')
+                .split('=', 1)[0];
+        }
+    };
+
+    return {
         decode: B64.decode,
-        encode: B64.encode
-    }
+        encode: B64.encode,
+        urldecode: B64url.decode,
+        urlencode: B64url.encode,
+    };
 })());
+
