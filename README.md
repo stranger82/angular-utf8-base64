@@ -24,7 +24,7 @@ bower install angular-utf8-base64
 
 ```javascript
 angular
-    .module('myApp', ['ab-base64'])
+    .module('myApp', ['utf8-base64'])
     .controller('myController', [
 
         '$scope','base64',
@@ -41,7 +41,7 @@ Commonly used for supporting JWS and JWT encodings, base64url encoding creates a
 
 ```javascript
 angular
-    .module('myApp', ['ab-base64'])
+    .module('myApp', ['utf8-base64'])
     .controller('myController', [
 
         '$scope','base64',
