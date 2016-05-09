@@ -3,6 +3,7 @@
   "version": "0.0.5",
   "author": "stranger82",
   "description": "Base64 encoding/decoding with UTF8 support for AngularJS Apps",
+  "main": "angular-utf8-base64.js",
   "contributors": [
     {
       "name": "Andrey Bezyazychniy",
